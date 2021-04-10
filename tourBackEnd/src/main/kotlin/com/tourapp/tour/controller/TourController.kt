@@ -14,14 +14,21 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestMapping
 import java.io.File
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/tourApi")
 class TourController {
     val service = TourService()
 
+    @RequestMapping(value =["/getUser"], method = [RequestMethod.POST])
+    fun getUser(@RequestBody user: User): ResponseEntity<User>{
+        println(user)
+        return ResponseEntity.ok(service.getUser(user))
+    }
+
     @RequestMapping(value = ["/putUser"], method = [RequestMethod.POST])
     fun putUser(@RequestBody user: User):ResponseEntity<Boolean> {
+        println(user)
         return ResponseEntity.ok(service.registerUser(user));
     }
 
@@ -30,6 +37,10 @@ class TourController {
         return ResponseEntity.ok(service.getCountries())
     }
 
+    @RequestMapping(value = ["/getTours"], method = [RequestMethod.GET])
+    fun putUser():ResponseEntity<ArrayList<Tour>> {
+        return ResponseEntity.ok(service.getTours())
+    }
 
     @RequestMapping(value = ["/getToursFiltered"], method = [RequestMethod.POST])
     fun putUser(@RequestBody tour: Tour):ResponseEntity<ArrayList<Tour>> {

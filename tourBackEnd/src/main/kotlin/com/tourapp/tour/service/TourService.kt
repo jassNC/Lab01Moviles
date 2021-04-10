@@ -17,6 +17,10 @@ class TourService {
         return TourDao.putUser(user);
     }
 
+    fun getUser(user: User): User? {
+        return TourDao.getUser(user)
+    }
+
     fun getTours():ArrayList<Tour>{
         return  TourDao.getTours()
     }

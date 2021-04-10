@@ -184,8 +184,25 @@ object TourDao {
         return true
     }
 
-
-
+    fun getUser(user: User): User?{
+        var stmt: Statement?
+        var resultset: ResultSet?
+        var result: User? = null
+        try {
+            stmt = conn!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.user WHERE EMAIL = '${user.email}' AND PASSWORD = '${user.password}';")
+            if(resultset!!.next()) {
+                result = User(resultset.getInt("ID"),resultset.getString("NAME"),
+                    resultset.getString("EMAIL"), resultset.getDate("BIRTH_DATE"),
+                    resultset.getString("PASSWORD"),
+                    this.getCountryById(resultset.getInt("COUNTRY_FK"))
+                )
+            }
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+        }
+        return result;
+    }
 
     fun getConnection():Connection? {
         val connectionProps = Properties()

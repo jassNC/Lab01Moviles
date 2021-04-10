@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/formRegistro.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+
+            <form id="signup">
+
+                <div class="header">
+
+                    <h3>Registre el tour</h3>
+
+                    <p>Ingrese los datos del tour</p>
+
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="inputs">
+
+                    <label for="nombreTour"><img src="images/ubicacion.png" alt=""/>&nbsp;&nbsp;Nombre</label>
+                    <input type="text" class="form-control" id="tourName" placeholder="Tour">
+
+                    <label for="descripcion"><img src="images/list.png" alt=""/>&nbsp;&nbsp;Descripción</label>
+                    <input type="text" class="form-control" id="description" placeholder="Breve descripción">
+                    
+                    <label for="calificacion"><img src="images/calificacion.png" alt=""/>&nbsp;&nbsp;Calificación</label>
+                    <select name="rating" class="form-control" >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    
+                    
+                    <label for="fechaIni"><img src="images/cale.png" alt=""/>&nbsp;&nbsp;Fecha de inicio</label>
+                    <input type="date" class="form-control" id="birthdate" placeholder="Inicio">
+                    
+                    <label for="duracion"><img src="images/reloj.png" alt=""/>&nbsp;&nbsp;Duración</label>
+                    <input type="text" class="form-control" id="country" placeholder="Duración del tour">
+                    
+                    <label for="precio"><img src="images/dinero.png" alt=""/>&nbsp;&nbsp;Precio</label>
+                    <input type="text" class="form-control" id="country" placeholder="Precio total">
+                    
+                    <label for="cupoMax"><img src="images/list.png" alt=""/>&nbsp;&nbsp;Cupo máximo</label>
+                    <input type="text" class="form-control" id="country" placeholder="Capacidad máxima">
+                    
+                    <label for="categoria"><img src="images/list.png" alt=""/>&nbsp;&nbsp;Categoría</label>
+                    <input type="text" class="form-control" id="country" placeholder="Tipo de tour">
+
+                    <a id="submit" href="#">REGISTRAR</a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </body>
+</html>
