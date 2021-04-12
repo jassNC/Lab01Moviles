@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link href="css/user.css" rel="stylesheet" type="text/css"/>
+        <link href="css/viaje.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <body>
+        <div class="titulo">
+            <h1>Barcelona tour en bicicleta</h1>
+        </div>
+        <div class="father">
+            <div id="carrusel">
+                <a href="#" class="left-arrow"><img src="images/izquierda.png" /></a>
+                <a href="#" class="right-arrow"><img src="images/derecha.png" /></a>
+                <div class="carrusel">
+                    <div class="product" id="product_0">
+                        <img src="images/globos.jpg" width="798" height="303" />
+                    </div>
+                    <div class="product" id="product_1">
+                        <img src="images/mundo.jpg" width="798" height="303" />
+                    </div>
+                    <div class="product" id="product_2">
+                        <img src="images/paisaje.jpg" width="798" height="303" />
+                    </div>
+                    <div class="product" id="product_3">
+                        <img src="images/viajar.jpg" width="798" height="303" />
+                    </div>
+                    <div class="product" id="product_4">
+                        <img src="images/paisaje2.jpg" width="798" height="303" />
+                    </div>
+                    <div class="product" id="product_5">
+                        <img src="images/reg.png" width="798" height="303" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            <p>
+                Ve más lugares de Barcelona en menos tiempo con un tour en bicicleta. 
+                Accede a zonas en que los autobuses turísticos no te pueden llevar y 
+                sumérgete en sus vibrantes barrios.
+            </p>
+        </div>
+
+        <section class="infoSection" id="informacion">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5" >
+
+                    <h2>Información general</h2>
+                    <p>Duración: 3 - 4 horas</p>
+                    <p>Hora de inicio: 1:00pm</p>
+                    <p>Incluye hidratación</p>
+
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5">
+                    <h2>Indicaciones y recomendaciones</h2>
+                    <p>El punto de encuentro es frente a la catedral de la sagrada familia</p>
+                    <p>Se recomienda llevar ropa fresca y cómoda</p>
+                </div>
+                <div class="pago">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5">
+                        <h2>Precio: $100</h2>
+                        <p>Cantidad:</p> 
+                        <div class="selector">
+                            <select name="rating" class="form-control" >
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button id="boton-reservar" class="btn btn-primary">Reservar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr color="blue" size=3> 
+        <!-- Contenedor Principal -->
+        <div class="comments-container">
+            <h1>Comentarios <a>creaticode.com</a></h1>
+
+            <ul id="comments-list" class="comments-list">
+                <li>
+                    <div class="comment-main-level">
+                        <!-- Avatar -->
+                        <div class="comment-avatar"><img src="images/avatar1.jpg" alt=""></div>
+                        <!-- Contenedor del Comentario -->
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+                                <span>hace 20 minutos</span>
+                                <i class="fa fa-reply"></i>
+                                <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="comment-content">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Respuestas de los comentarios -->
+                    <ul class="comments-list reply-list">
+                        <li>
+                            <!-- Avatar -->
+                            <div class="comment-avatar"><img src="images/avatar2.jpg" alt=""></div>
+                            <!-- Contenedor del Comentario -->
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                    <span>hace 10 minutos</span>
+                                    <i class="fa fa-reply"></i>
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="comment-content">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <!-- Avatar -->
+                            <div class="comment-avatar"><img src="images/avatar1.jpg" alt=""></div>
+                            <!-- Contenedor del Comentario -->
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+                                    <span>hace 10 minutos</span>
+                                    <i class="fa fa-reply"></i>
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="comment-content">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="comment-main-level">
+                        <!-- Avatar -->
+                        <div class="comment-avatar"><img src="images/avatar2.jpg" alt=""></div>
+                        <!-- Contenedor del Comentario -->
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+                                <span>hace 10 minutos</span>
+                                <i class="fa fa-reply"></i>
+                                <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="comment-content">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script>
+            var current = 0;
+            var imagenes = new Array();
+
+            $(document).ready(function () {
+                var numImages = 6;
+                if (numImages <= 3) {
+                    $('.right-arrow').css('display', 'none');
+                    $('.left-arrow').css('display', 'none');
+                }
+
+                $('.left-arrow').on('click', function () {
+                    if (current > 0) {
+                        current = current - 1;
+                    } else {
+                        current = numImages - 3;
+                    }
+
+                    $(".carrusel").animate({"left": -($('#product_' + current).position().left)}, 600);
+
+                    return false;
+                });
+
+                $('.left-arrow').on('hover', function () {
+                    $(this).css('opacity', '0.5');
+                }, function () {
+                    $(this).css('opacity', '1');
+                });
+
+                $('.right-arrow').on('hover', function () {
+                    $(this).css('opacity', '0.5');
+                }, function () {
+                    $(this).css('opacity', '1');
+                });
+
+                $('.right-arrow').on('click', function () {
+                    if (numImages > current + 3) {
+                        current = current + 1;
+                    } else {
+                        current = 0;
+                    }
+
+                    $(".carrusel").animate({"left": -($('#product_' + current).position().left)}, 600);
+
+                    return false;
+                });
+            });
+        </script>
+</html>
