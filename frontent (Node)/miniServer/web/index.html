@@ -26,11 +26,8 @@ and open the template in the editor.
                 <span class="site-desc">Viajes Extraordinarios</span>
             </a>
 
-            <nav>
-                <ul>
-                    <li><a href="#openModal">Iniciar Sesión</a></li>
-                    <li><a href="registroUsuario.html">Registrarse</a></li>
-                </ul>
+            <nav id = "navBar">
+
             </nav>
         </header>
         <div id="openModal" class="modalDialog">
@@ -53,7 +50,7 @@ and open the template in the editor.
                                 <label class="login-field-icon fui-lock" for="login-pass"></label>
                             </div>
 
-                            <button id="loginBtn" type="button" class="btn btn-primary btn-large btn-block">Login</button>
+                            <button id="loginBtn" href="#close" type="button" class="btn btn-primary btn-large btn-block">Login</button>
                             <a class="login-link" href="#">Lost your password?</a>
                         </div>
                     </div>
@@ -89,41 +86,8 @@ and open the template in the editor.
                 </div>
             </div>                  
         </div>
-		<div class="container py-3">
-            <!-- Card Start -->
-            <div class="card">
-                <div class="row ">
+		<div class="container py-3" id="tourCards_div">
 
-                    <div class="col-md-7 px-3">
-                        <div class="card-block px-6">
-                            <h4 class="card-title">Tour en bicicleta Barcelona </h4>
-
-                            <input id="toggle-heart" type="checkbox"/>
-                            <label for="toggle-heart" aria-label="like">❤</label>
-                            <p class="card-text">
-                                Duración: 2.5 - 4 horas
-                            </p>
-                            <p class="card-text">⭐⭐⭐⭐</p>
-                            <p class="card-text">250 visitas</p>
-                            <p class="card-text">$200 por persona</p>
-                            <br>
-                            <a href="#" class="mt-auto btn btn-primary  ">Ver más</a>
-                        </div>
-                    </div>
-                    <!-- Carousel start -->
-                    <div class="col-md-5">
-                        <div id="ImageneTest" class="imagene slide" data-ride="imagene">
-                            <div class="imagene-inner">
-                                <div class="imagene-item active">
-                                    <img class="d-block" src="images/paisaje.jpg" width="400" height="250" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of carousel -->
-                </div>
-            </div>
-            <!-- End of card -->
         </div>
     </body>
 </html>
