@@ -33,6 +33,10 @@ class TourService {
         return TourDao.getActivities()
     }
 
+    fun addFav(user: User): Boolean{
+        return TourDao.addFav(user)
+    }
+
 
 
 

@@ -28,7 +28,7 @@ and open the template in the editor.
 <body>
     <div class="container">
 
-        <form id="signup" action="http://localhost:3000/?#openModal">
+        <form id="signup" action="/submitRegisterForm" method="POST">
 
             <div class="header">
 
@@ -43,21 +43,21 @@ and open the template in the editor.
             <div class="inputs">
             
                     <label for="exampleInputEmail1"><img src="images/id.png" alt="" />&nbsp;&nbsp;Identificación</label>
-                    <input type="text" class="form-control" id="id" placeholder="Identificación" required>
+                    <input type="text" class="form-control" name="id" placeholder="Identificación" required>
 
                     <label for="exampleInputEmail1"><img src="images/user.png" alt="" />&nbsp;&nbsp;Nombre
                         completo</label>
-                    <input type="text" class="form-control" id="name" placeholder="Nombre" required>
+                    <input type="text" class="form-control" name="name" placeholder="Nombre" required>
 
                     <label for="exampleInputEmail1"><img src="images/email.png" alt="" />&nbsp;&nbsp;Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
 
                     <label for="exampleInputEmail1"><img src="images/cale.png" alt="" />&nbsp;&nbsp;Fecha de
                         nacimiento</label>
-                    <input type="date" class="form-control" id="birthdate" placeholder="Fecha de Nacimiento" required>
+                    <input type="date" class="form-control" name="birthdate" placeholder="Fecha de Nacimiento" required>
 
                     <label for="exampleInputEmail1"><img src="images/pais.png" alt="" />&nbsp;&nbsp;País</label>
-                    <select id="countrySelect" class="form-control" aria-label=".form-select-lg example">
+                    <select name="countrySelect" class="form-control" aria-label=".form-select-lg example">
                         <option value="Afganistan">Afghanistan</option>
                         <option value="Albania">Albania</option>
                         <option value="Algeria">Algeria</option>
@@ -307,7 +307,8 @@ and open the template in the editor.
                     </select>
 
                     <label for="exampleInputPassword1"><img src="images/pass.png" alt="" />&nbsp;&nbsp;Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    <input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*\W)(?=.*[A-Z]).{8,}$" class="form-control" name="password" placeholder="Password" required>
+                    <h6>(Debe tener mas de 8 caracteres y al menos una mayuscula, minuscula, digito y caracter especial)</h6>
 
                     <input type="submit" id="submit">
                

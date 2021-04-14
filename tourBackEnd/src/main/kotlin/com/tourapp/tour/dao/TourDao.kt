@@ -6,6 +6,7 @@ import java.time.LocalDate
 
 import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.Date
 import kotlin.collections.ArrayList
 
 
@@ -142,17 +143,24 @@ object TourDao {
         var stmt: Statement?
         var resultset: ResultSet?
         var result = ArrayList<Tour>()
-        var lDate = "${tour.leaveDate.day},${tour.leaveDate.month},${tour.leaveDate.year}"
-        var rDate = "${tour.returnDate.day},${tour.returnDate.month},${tour.returnDate.year}"
-        var countryReq:String?=null
-        if(tour.country.id>0){
-            countryReq = "AND COUNTRY = ${tour.country.id}"
+        if(tour.leaveDate == null){
+            tour.leaveDate= Date(0,0,1)
         }
+        if(tour.returnDate == null){
+            tour.returnDate = Date(4000,0,0)
+        }
+        if(tour.country.name == null){
+            tour.country.name = ""
+        }
+        var lDate =java.sql.Date(tour.leaveDate!!.time)
+        var rDate = java.sql.Date(tour.returnDate!!.time)
 
         try {
             stmt = conn!!.createStatement()
-            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.TOUR WHERE LEAVE_DATE = STR_TO_DATE('$lDate','%d,%m,%Y')" +
-                                            "AND RETURN_DATE = STR_TO_DATE('$rDate','%d,%m,%Y') +$countryReq")
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.TOUR T INNER JOIN tourdb.COUNTRY C"+
+                    " WHERE C.ID = T.COUNTRY_FK AND T.LEAVE_DATE > STR_TO_DATE('$lDate','%Y-%m-%d')" +
+                    "AND T.RETURN_DATE < STR_TO_DATE('$rDate','%Y-%m-%d') AND"+
+                    " UPPER(C.NAME) LIKE '%${tour.country.name}%'")
 
             while(resultset!!.next()) {
                 result.add(Tour(resultset.getInt("ID"), resultset.getString("NAME"),
@@ -203,6 +211,18 @@ object TourDao {
             ex.printStackTrace()
         }
         return result;
+    }
+
+    fun addFav(user: User): Boolean{
+        var stmt: Statement?
+        try {
+            stmt = conn!!.prepareCall("CALL tourdb.ADD_TO_FAV(${user.id},${user.favs[0].id})")
+            stmt!!.executeQuery()
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+            return false
+        }
+        return true
     }
 
     fun getConnection():Connection? {

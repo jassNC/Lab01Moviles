@@ -32,6 +32,12 @@ class TourController {
         return ResponseEntity.ok(service.registerUser(user));
     }
 
+    @RequestMapping(value = ["/addFav"], method = [RequestMethod.POST])
+    fun addFav(@RequestBody user: User):ResponseEntity<Boolean> {
+        println(user)
+        return ResponseEntity.ok(service.addFav(user));
+    }
+
     @RequestMapping(value =["/getCountries"], method = [RequestMethod.GET])
     fun getCountries(): ResponseEntity<ArrayList<Country>>{
         return ResponseEntity.ok(service.getCountries())
@@ -47,6 +53,7 @@ class TourController {
         println(tour)
         return ResponseEntity.ok(service.getToursFiltered(tour))
     }
+
 
 
     @RequestMapping(value = ["/helloWorld/{name}"], method = [(RequestMethod.GET)])

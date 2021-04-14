@@ -1,5 +1,5 @@
 window.onload = function () {
-    document.getElementById("submit").addEventListener("click", register);
+    //document.getElementById("submit").addEventListener("click", register);
 };
 
 async function register() {

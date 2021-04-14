@@ -3,6 +3,11 @@ body {
   background-size: cover !important;
 }
 
+.heart {
+  font-size: 25px;
+	color:red;
+}
+
 .modalDialog {
 	position: fixed;
 	font-family: Arial, Helvetica, sans-serif;
