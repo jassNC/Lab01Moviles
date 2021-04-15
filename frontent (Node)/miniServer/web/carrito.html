@@ -12,6 +12,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link href="css/header.css" rel="stylesheet" type="text/css"/>
         <link href="css/user.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        
     </head>
     <body>
         <header id="main-header">
@@ -40,7 +43,7 @@ and open the template in the editor.
                 <!-- Precio total -->
                 <p class="text-right">Total: <span id="total"></span>&dollar;</p>
                 <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-                <button id="boton-vaciar" class="btn btn-success">Confirmar</button>
+                <button id="boton-comprar" class="btn btn-success">Confirmar</button>
             </aside>
         </div>
     </div>
@@ -98,35 +101,31 @@ and open the template in the editor.
         
         <!-- Carrito -->
         <script>
-        window.onload = function () {
-          // Variables
-          const baseDeDatos = [
-              {
-                  id: 1,
-                  nombre: 'Viaje 1',
-                  precio: 50,
-                  imagen: 'images/paisaje.jpg'
-              },
-              {
-                  id: 2,
-                  nombre: 'Viaje 2',
-                  precio: 100,
-                  imagen: 'images/paisaje.jpg'
-              },
-              {
-                  id: 3,
-                  nombre: 'Viaje 3',
-                  precio: 500,
-                  imagen: 'images/paisaje.jpg'
-              },
-              {
-                  id: 4,
-                  nombre: 'Viaje 4',
-                  precio: 20,
-                  imagen: 'images/paisaje.jpg'
-              }
+        window.onload = async function () {
 
-          ];
+           
+          // Variables
+          var baseDeDatos = await loadTours()
+        
+          async function loadTours(){
+                let promise = await fetch("http://localhost:3000/cart")
+                return await promise.json()
+            }
+
+            function clearCart(){
+                fetch("http://localhost:3000/clearCart")
+                window.location = 'http://localhost:3000/carrito.html';
+            }
+
+            function loadTotalPrice(){
+                var total = 0;
+                baseDeDatos.forEach(element => {
+                    total+=element.precio*element.seats
+                });
+                return total
+            }
+            $("#total").html(loadTotalPrice())
+            document.getElementById("boton-vaciar").addEventListener("click", clearCart);
 
           let carrito = [];
           let total = 0;
@@ -152,25 +151,13 @@ and open the template in the editor.
                   const miNodoTitle = document.createElement('h5');
                   miNodoTitle.classList.add('card-title');
                   miNodoTitle.textContent = info.nombre;
-                  // Imagen
-                  const miNodoImagen = document.createElement('img');
-                  miNodoImagen.classList.add('img-fluid');
-                  miNodoImagen.setAttribute('src', info.imagen);
                   // Precio
                   const miNodoPrecio = document.createElement('p');
                   miNodoPrecio.classList.add('card-text');
-                  miNodoPrecio.textContent = '$' + info.precio;
-                  // Boton 
-                  const miNodoBoton = document.createElement('button');
-                  miNodoBoton.classList.add('btn', 'btn-primary');
-                  miNodoBoton.textContent = '+';
-                  miNodoBoton.setAttribute('marcador', info.id);
-                  miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
+                  miNodoPrecio.textContent = info.seats+'x $' + info.precio;
                   // Insertamos
-                  miNodoCardBody.appendChild(miNodoImagen);
                   miNodoCardBody.appendChild(miNodoTitle);
                   miNodoCardBody.appendChild(miNodoPrecio);
-                  miNodoCardBody.appendChild(miNodoBoton);
                   miNodo.appendChild(miNodoCardBody);
                   DOMitems.appendChild(miNodo);
               });
@@ -245,20 +232,6 @@ and open the template in the editor.
           /**
           * Calcula el precio total teniendo en cuenta los productos repetidos
           */
-          function calcularTotal() {
-              // Limpiamos precio anterior
-              total = 0;
-              // Recorremos el array del carrito
-              carrito.forEach((item) => {
-                  // De cada elemento obtenemos su precio
-                  const miItem = baseDeDatos.filter((itemBaseDatos) => {
-                      return itemBaseDatos.id === parseInt(item);
-                  });
-                  total = total + miItem[0].precio;
-              });
-              // Renderizamos el precio en el HTML
-              DOMtotal.textContent = total.toFixed(2);
-          }
 
           /**
           * Varia el carrito y vuelve a dibujarlo
@@ -268,7 +241,6 @@ and open the template in the editor.
               carrito = [];
               // Renderizamos los cambios
               renderizarCarrito();
-              calcularTotal();
           }
 
           // Eventos

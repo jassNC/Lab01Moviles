@@ -100,10 +100,20 @@ app.get('/content', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
 });
 
+app.get('/cart', function (req, res) {
+  res.send(req.session.cart);
+});
+
+app.get('/clearCart', function (req, res) {
+  req.session.cart = []
+  res.send("done");
+});
+
 app.get('/addToCart', function (req, res) {
   let tour = {
     id: req.query.id,
-    price: req.query.price,
+    nombre: req.query.name,
+    precio: req.query.price,
     seats: req.query.seats
   }
   if (req.session.cart) {
@@ -111,6 +121,7 @@ app.get('/addToCart', function (req, res) {
     req.session.cart = []
 
   req.session.cart.push(tour)
+  console.log(req.session.cart)
   res.send("Added")
 });
 

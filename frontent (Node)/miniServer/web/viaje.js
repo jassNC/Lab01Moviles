@@ -63,7 +63,7 @@ async function updateNavBar() {
     user = await getLoggedUser()
     let options
     if (user.name != "noUser") {
-        options = "<ul><li><a href='user.html'>" + user.name + "</a></li><li><a id = 'logoutOpt'>Logout</a></li></ul>"
+        options = "<ul><li><a href='user.html'>" + user.name + "</a></li><li><a href='carrito.html'>Carrito</a></li><li><a id = 'logoutOpt'>Logout</a></li></ul>"
         $("#navBar").html(options)
         document.getElementById("logoutOpt").addEventListener("click", logout);
     } else {
@@ -78,6 +78,11 @@ async function getLoggedUser() {
 
 async function addToCart() {
     if($("#ammountId").val()>0){
-        fetch("http://localhost:3000/addToCart?id="+tour.id+"&price="+tour.price+"&seats="+$("#ammountId").val())
+        fetch("http://localhost:3000/addToCart?id="+tour.id+"&price="+tour.price+"&seats="+$("#ammountId").val()+"&name="+tour.name)
     }
+}
+
+function logout() {
+    fetch("http://localhost:3000/logout")
+    window.location = 'http://localhost:3000';
 }
