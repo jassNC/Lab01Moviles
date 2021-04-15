@@ -28,6 +28,35 @@ async function addFav(userId, tourId){
     return await promise.text()==="true"
 }
 
+async function getFavs(userId){
+    data ={
+        id: userId
+    }
+    let promise = await fetch('http://localhost:8080/tourApi/getFavs', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return await promise.json()
+}
+
+async function removeFav(userId, tourId){
+    data ={
+        id: userId,
+        favs: [{id:tourId}]
+    }
+    let promise = await fetch('http://localhost:8080/tourApi/removeFav', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return await promise.text()==="true"
+}
+
 async function logUser(email, password){
     let user = {
         email: email,
@@ -50,7 +79,26 @@ async function logUser(email, password){
     }
 }
 
+async function getTourById(tourID){
+    let tour = {
+        id: tourID
+    }
+
+    let promise = await fetch('http://localhost:8080/tourApi/getTourById',{
+        method:"POST",
+        body:JSON.stringify(tour),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await promise.json()
+}
+
 
 exports.logUser = logUser
 exports.registerUser = registerUser
 exports.addFav = addFav
+exports.removeFav = removeFav
+exports.getFavs = getFavs
+exports.getTourById = getTourById

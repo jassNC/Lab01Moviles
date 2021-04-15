@@ -37,6 +37,18 @@ class TourService {
         return TourDao.addFav(user)
     }
 
+    fun removeFav(user: User): Boolean{
+        return TourDao.removeFav(user)
+    }
+
+    fun getFavs(user: User): ArrayList<Int>{
+        return TourDao.getFavs(user)
+    }
+
+    fun getTourById(tour: Tour): Tour{
+        return TourDao.getTourById(tour)
+    }
+
 
 
 

@@ -130,7 +130,8 @@ object TourDao {
                                 resultset.getDouble("PRICE"), resultset.getInt("SEATS"),
                                 this.getCountryById(resultset.getInt("COUNTRY_FK")),
                                 this.getCategoryById(resultset.getInt("CATEGORY_FK")),
-                                this.getActivitiesByTourId(resultset.getInt("ID")))
+                                this.getActivitiesByTourId(resultset.getInt("ID")),
+                    this.getReviewsByTourId(resultset.getInt("ID")))
                             )
             }
         } catch (ex: SQLException) {
@@ -169,7 +170,51 @@ object TourDao {
                     resultset.getDouble("PRICE"), resultset.getInt("SEATS"),
                     this.getCountryById(resultset.getInt("COUNTRY_FK")),
                     this.getCategoryById(resultset.getInt("CATEGORY_FK")),
-                    this.getActivitiesByTourId(resultset.getInt("ID")))
+                    this.getActivitiesByTourId(resultset.getInt("ID")),
+                    this.getReviewsByTourId(resultset.getInt("ID")))
+                )
+            }
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+        }
+        return result;
+    }
+
+    fun getReviewsByTourId(id: Int): ArrayList<Review>{
+        var stmt: Statement?
+        var resultset: ResultSet?
+        var result = ArrayList<Review>()
+
+        try {
+            stmt = conn!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.REVIEW WHERE TOUR_FK = ${id};")
+
+            while (resultset!!.next()) {
+                result.add(Review(1,resultset.getString("BODY")))
+            }
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+        }
+        return result;
+    }
+
+    fun getTourById(tour: Tour): Tour{
+        var stmt: Statement?
+        var resultset: ResultSet?
+        var result = Tour()
+        try {
+            stmt = conn!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.TOUR WHERE ID = ${tour.id}")
+
+            if(resultset!!.next()) {
+                result = (Tour(resultset.getInt("ID"), resultset.getString("NAME"),
+                    resultset.getString("DESCRIPTION"), resultset.getInt("RATING"),
+                    resultset.getDate("LEAVE_DATE"), resultset.getDate("RETURN_DATE"),
+                    resultset.getDouble("PRICE"), resultset.getInt("SEATS"),
+                    this.getCountryById(resultset.getInt("COUNTRY_FK")),
+                    this.getCategoryById(resultset.getInt("CATEGORY_FK")),
+                    this.getActivitiesByTourId(resultset.getInt("ID")),
+                    this.getReviewsByTourId(resultset.getInt("ID")))
                 )
             }
         } catch (ex: SQLException) {
@@ -223,6 +268,38 @@ object TourDao {
             return false
         }
         return true
+    }
+
+    fun removeFav(user: User): Boolean{
+        var stmt: Statement?
+        try {
+            stmt = conn!!.prepareCall("CALL tourdb.REMOVE_FROM_FAV(${user.id},${user.favs[0].id})")
+            stmt!!.executeQuery()
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun getFavs(user: User): ArrayList<Int>{
+        var stmt: Statement?
+        var resultset: ResultSet?
+        var result = ArrayList<Int>()
+
+        println("SELECT * FROM tourdb.FAVORITE WHERE USER_ID = ${user.id};")
+
+        try {
+            stmt = conn!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.FAVORITE WHERE USER_ID = ${user.id};")
+
+            while (resultset!!.next()) {
+                result.add(resultset.getInt("TOUR_ID"))
+            }
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+        }
+        return result;
     }
 
     fun getConnection():Connection? {

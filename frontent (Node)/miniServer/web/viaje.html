@@ -9,12 +9,26 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link href="css/header.css" rel="stylesheet" type="text/css"/>
         <link href="css/user.css" rel="stylesheet" type="text/css"/>
         <link href="css/viaje.css" rel="stylesheet" type="text/css"/>
+        <script type="module" src="viaje.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <body>
+        <header id="main-header">
+            <a id="logo-header" href="http://localhost:3000/">
+                <span class="site-name">GetYourTour</span>
+                <span class="site-desc">Viajes Extraordinarios</span>
+            </a>
+
+            <nav id = "navBar">
+
+            </nav>
+        </header>
         <div class="titulo">
-            <h1>Barcelona tour en bicicleta</h1>
+            <h1 id = "titleId"></h1>
         </div>
         <div class="father">
             <div id="carrusel">
@@ -44,45 +58,22 @@ and open the template in the editor.
         </div>
 
         <div class="description">
-            <p>
-                Ve más lugares de Barcelona en menos tiempo con un tour en bicicleta. 
-                Accede a zonas en que los autobuses turísticos no te pueden llevar y 
-                sumérgete en sus vibrantes barrios.
+            <p id = "descId">
             </p>
         </div>
 
         <section class="infoSection" id="informacion">
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5" >
-
-                    <h2>Información general</h2>
-                    <p>Duración: 3 - 4 horas</p>
-                    <p>Hora de inicio: 1:00pm</p>
-                    <p>Incluye hidratación</p>
-
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5" id = "detailsId" >
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5">
-                    <h2>Indicaciones y recomendaciones</h2>
-                    <p>El punto de encuentro es frente a la catedral de la sagrada familia</p>
-                    <p>Se recomienda llevar ropa fresca y cómoda</p>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5" id = "includesId">
                 </div>
                 <div class="pago">
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-md-5 mb-5 pr-md-5">
-                        <h2>Precio: $100</h2>
+                        <h2 id = "priceId"></h2>
                         <p>Cantidad:</p> 
                         <div class="selector">
-                            <select name="rating" class="form-control" >
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                            <select name="rating" class="form-control" id="ammountId" >
                             </select>
                         </div>
                         <br>
@@ -94,82 +85,10 @@ and open the template in the editor.
         <hr color="blue" size=3> 
         <!-- Contenedor Principal -->
         <div class="comments-container">
-            <h1>Comentarios <a>creaticode.com</a></h1>
+            <h1>Comentarios</h1>
 
             <ul id="comments-list" class="comments-list">
-                <li>
-                    <div class="comment-main-level">
-                        <!-- Avatar -->
-                        <div class="comment-avatar"><img src="images/avatar1.jpg" alt=""></div>
-                        <!-- Contenedor del Comentario -->
-                        <div class="comment-box">
-                            <div class="comment-head">
-                                <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
-                                <span>hace 20 minutos</span>
-                                <i class="fa fa-reply"></i>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="comment-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Respuestas de los comentarios -->
-                    <ul class="comments-list reply-list">
-                        <li>
-                            <!-- Avatar -->
-                            <div class="comment-avatar"><img src="images/avatar2.jpg" alt=""></div>
-                            <!-- Contenedor del Comentario -->
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                                    <span>hace 10 minutos</span>
-                                    <i class="fa fa-reply"></i>
-                                    <i class="fa fa-heart"></i>
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <!-- Avatar -->
-                            <div class="comment-avatar"><img src="images/avatar1.jpg" alt=""></div>
-                            <!-- Contenedor del Comentario -->
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
-                                    <span>hace 10 minutos</span>
-                                    <i class="fa fa-reply"></i>
-                                    <i class="fa fa-heart"></i>
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <div class="comment-main-level">
-                        <!-- Avatar -->
-                        <div class="comment-avatar"><img src="images/avatar2.jpg" alt=""></div>
-                        <!-- Contenedor del Comentario -->
-                        <div class="comment-box">
-                            <div class="comment-head">
-                                <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                                <span>hace 10 minutos</span>
-                                <i class="fa fa-reply"></i>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="comment-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-                            </div>
-                        </div>
-                    </div>
-                </li>
+               
             </ul>
         </div>
     </body>

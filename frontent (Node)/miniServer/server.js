@@ -46,10 +46,29 @@ app.get('/putTour', function (req, res) {
   res.sendFile(path.join(__dirname + '/web/viaje.html'))
 })
 
+app.get('/getTour', async function (req, res) {
+  res.send(await services.getTourById(req.session.tourId))
+})
+
 app.get('/addFav',function(req, res){
   var tourId = req.query.tourId
   var userId = req.session.user.id
-  console.log(services.addFav(userId, tourId))
+  services.addFav(userId, tourId)
+})
+
+app.get('/removeFav',function(req, res){
+  var tourId = req.query.tourId
+  var userId = req.session.user.id
+  services.removeFav(userId, tourId)
+})
+
+app.get('/getFavs',async function(req, res){
+  if(req.session.user){
+    var userId = req.session.user.id
+    res.send(await services.getFavs(userId))
+  }else{
+    res.send([])
+  }
 })
 
 app.get('/login', async function (req, res) {
@@ -81,19 +100,23 @@ app.get('/content', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
 });
 
+app.get('/addToCart', function (req, res) {
+  let tour = {
+    id: req.query.id,
+    price: req.query.price,
+    seats: req.query.seats
+  }
+  if (req.session.cart) {
+  } else
+    req.session.cart = []
+
+  req.session.cart.push(tour)
+  res.send("Added")
+});
+
 app.use('/', express.static('web/index.html'))
 
 app.use(express.static('web'));
 
 app.listen(3000, () => console.log('listening on port 3000'));
 
-app.get('/addToCart', function (req, res) {
-  console.log(req.session.cart)
-  if (req.session.cart) {
-    console.log(req.session.cart)
-  } else
-    req.session.cart = []
-
-  req.session.cart.push(req.query)
-  res.send("logout success!");
-});
