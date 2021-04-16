@@ -3,6 +3,19 @@ FROM ACTIVITY AC
 INNER JOIN FEATURE F ON F.ACTIVITY_FK = AC.ID 
 INNER JOIN TOUR T ON F.TOUR_FK = T.ID;
 
+DROP PROCEDURE IF EXISTS PUT_RESERVATION;
+DELIMITER //
+CREATE PROCEDURE PUT_RESERVATION
+(IN P_SEATS INT, IN P_USER INT, IN P_TOUR INT)
+BEGIN
+DECLARE V_SEATS INT;
+    SELECT SEATS INTO V_SEATS FROM TOUR WHERE ID = P_TOUR;
+    UPDATE TOUR SET SEATS = V_SEATS - P_SEATS WHERE ID = P_TOUR;
+	INSERT INTO RESERVATION (SEATS, USER_FK, TOUR_FK) 
+				VALUES (P_SEATS, P_USER, P_TOUR);
+END 
+//DELIMITER ;
+
 DROP PROCEDURE IF EXISTS PUT_USER;
 DELIMITER //
 CREATE PROCEDURE PUT_USER
@@ -304,48 +317,96 @@ END
 select * from country;
 
 INSERT INTO activity (BODY) VALUES ('Bungie Jump');
-INSERT INTO activity (BODY) VALUES ('Cart Racing');
+INSERT INTO activity (BODY) VALUES ('Caminata en la playa');
 INSERT INTO activity (BODY) VALUES ('Zafari');
 INSERT INTO activity (BODY) VALUES ('Paintball');
-INSERT INTO activity (BODY) VALUES ('Bike travel');
+INSERT INTO activity (BODY) VALUES ('Paseo en bicicleta');
 INSERT INTO activity (BODY) VALUES ('Museum guide');
+INSERT INTO activity (BODY) VALUES ('Surf');
+INSERT INTO activity (BODY) VALUES ('Paseo en bote');
+INSERT INTO activity (BODY) VALUES ('Visita guiada');
+INSERT INTO activity (BODY) VALUES ('Comida');
+INSERT INTO activity (BODY) VALUES ('Alojamiento');
+
 select * from activity;
 
-INSERT INTO CATEGORY (NAME) VALUES ("Adventure");
-INSERT INTO CATEGORY (NAME) VALUES ("Historical");
-INSERT INTO CATEGORY (NAME) VALUES ("Travel");
+INSERT INTO CATEGORY (NAME) VALUES ("Aventura");
+INSERT INTO CATEGORY (NAME) VALUES ("Historico");
+INSERT INTO CATEGORY (NAME) VALUES ("Recreativo");
 select * from category;
 
 INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
-VALUES('Nature discovery Tour','Travel trough de wilds of Mexico',5,sysdate(),sysdate(),300,40,1,141);
-INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
-VALUES('Museum Tour','Learn about the Inca culture',5,STR_TO_DATE('02-04-2021','%d-%m-%Y'), 
-STR_TO_DATE('23-05-2021','%d-%m-%Y'),400,70,2,141);
-INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
-VALUES('Beach discovery','Visit several beaches in CR',5,STR_TO_DATE('20-06-2021','%d-%m-%Y'), 
-STR_TO_DATE('05-07-2021','%d-%m-%Y'),460,20,3,53);
-INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
-VALUES('Bike Tour','Bike ride trough the mountains',3,STR_TO_DATE('21-08-2021','%d-%m-%Y'), 
-STR_TO_DATE('30-08-2021','%d-%m-%Y'),60,20,3,53);
-select * from tour;
+VALUES('Descubre las piramides de Mexico','Ve a las mas famosas piramides de mexico y descubre sus secretos',
+5,STR_TO_DATE('20-06-2021','%d-%m-%Y'),STR_TO_DATE('24-06-2021','%d-%m-%Y'),200,40,2,141);
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (1,'http://localhost:3000/images/tourImg/piramideMexico1.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (1,'http://localhost:3000/images/tourImg/piramideMexico2.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (1,'http://localhost:3000/images/tourImg/piramideMexico3.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (1,'http://localhost:3000/images/tourImg/piramideMexico4.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (1,'http://localhost:3000/images/tourImg/piramideMexico5.jpg');
 
-SELECT * FROM tourdb.TOUR T INNER JOIN tourdb.COUNTRY C WHERE C.ID = T.COUNTRY_FK AND T.LEAVE_DATE > STR_TO_DATE('2021-02-28','%Y-%m-%d')AND T.RETURN_DATE < STR_TO_DATE('2021-08-03','%Y-%m-%d') AND UPPER(C.NAME) LIKE '%Cos%';
+INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
+VALUES('Descansa en las playas de Costa Rica','Visita las hermosas playas del pais centroamericano',
+5,STR_TO_DATE('10-05-2021','%d-%m-%Y'),STR_TO_DATE('21-05-2021','%d-%m-%Y'),500,30,1,53);
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (2,'http://localhost:3000/images/tourImg/playaCR1.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (2,'http://localhost:3000/images/tourImg/playaCR2.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (2,'http://localhost:3000/images/tourImg/playaCR3.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (2,'http://localhost:3000/images/tourImg/playaCR4.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (2,'http://localhost:3000/images/tourImg/playaCR5.jpg');
 
+INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
+VALUES('Increibles volcanes en Costa Rica','Visita los preciosos y antiguos volcanes del pais centroamericano',
+3,STR_TO_DATE('18-07-2021','%d-%m-%Y'),STR_TO_DATE('21-07-2021','%d-%m-%Y'),150,25,1,53);
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (3,'http://localhost:3000/images/tourImg/volcanesCR1.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (3,'http://localhost:3000/images/tourImg/volcanesCR2.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (3,'http://localhost:3000/images/tourImg/volcanesCR3.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (3,'http://localhost:3000/images/tourImg/volcanesCR4.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (3,'http://localhost:3000/images/tourImg/volcanesCR5.jpg');
 
+INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
+VALUES('Preciosas islas en Tailandia!','Visita y disfruta de las playas de este salvaje pais',
+4,STR_TO_DATE('05-06-2021','%d-%m-%Y'),STR_TO_DATE('12-06-2021','%d-%m-%Y'),700,50,1,119);
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (4,'http://localhost:3000/images/tourImg/tailandia1.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (4,'http://localhost:3000/images/tourImg/tailandia2.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (4,'http://localhost:3000/images/tourImg/tailandia3.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (4,'http://localhost:3000/images/tourImg/tailandia4.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (4,'http://localhost:3000/images/tourImg/tailandia5.jpg');
+
+INSERT INTO TOUR (NAME, DESCRIPTION, RATING, LEAVE_DATE, RETURN_DATE, PRICE, SEATS, CATEGORY_FK,COUNTRY_FK) 
+VALUES('Los mejores museos de USA','Visita y aprende en los mejores museos de Nueva York',
+2,STR_TO_DATE('07-08-2021','%d-%m-%Y'),STR_TO_DATE('08-08-2021','%d-%m-%Y'),220,80,3,223);
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (5,'http://localhost:3000/images/tourImg/museoNY5.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (5,'http://localhost:3000/images/tourImg/museoNY5.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (5,'http://localhost:3000/images/tourImg/museoNY5.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (5,'http://localhost:3000/images/tourImg/museoNY5.jpg');
+INSERT INTO IMAGE (TOUR_FK, LINK) VALUES (5,'http://localhost:3000/images/tourImg/museoNY5.jpg');
+
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (1,10);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (1,9);
 INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (1,3);
-INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (1,6);
-INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (1,5);
-SELECT * FROM TOUR_ACTIVITIES;
-
-DELETE FROM USER WHERE ID > 1;
-SELECT * FROM USER;
-
-
-
-SELECT * FROM tourdb.FAVORITE WHERE USER_ID = 1111;
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (2,7);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (2,10);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (3,10);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (3,9);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (3,11);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (3,1);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (4,11);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (4,10);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (4,8);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (5,9);
+INSERT INTO FEATURE (TOUR_FK, ACTIVITY_FK) VALUES (5,10);
+SELECT * FROM activity;
 
 insert into REVIEW (BODY, TOUR_FK) VALUES ('Muy buen tour me gusto mucho',1);
-insert into REVIEW (BODY, TOUR_FK) VALUES ('Muy buen tour me gusto mucho y me diverti',1);
-SELECT * FROM REVIEW WHERE TOUR_FK = 1;
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Muy bonito pero caluroso',1);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Hermosas playas!',2);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Muy bonito pero con olor a Azufre en el Irazu',3);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Hermosos volcanes',3);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Hermoso pais',4);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Geniales vistas',4);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Precioso!',4);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Fosiles de dinosaurio increibles',5);
+insert into REVIEW (BODY, TOUR_FK) VALUES ('Muy buena experiencia',5);
 
-delete from favorite where TOUR_ID = 1 AND USER_ID=1111;
+
+
+

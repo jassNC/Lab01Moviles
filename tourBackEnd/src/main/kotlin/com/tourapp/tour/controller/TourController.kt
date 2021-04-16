@@ -2,6 +2,7 @@ package com.tourapp.tour.controller
 
 
 import com.tourapp.tour.model.Country
+import com.tourapp.tour.model.Reservation
 import com.tourapp.tour.model.Tour
 import com.tourapp.tour.model.User
 import com.tourapp.tour.service.TourService
@@ -30,6 +31,17 @@ class TourController {
     fun putUser(@RequestBody user: User):ResponseEntity<Boolean> {
         println(user)
         return ResponseEntity.ok(service.registerUser(user));
+    }
+
+    @RequestMapping(value = ["/getLinks"], method = [RequestMethod.POST])
+    fun getLinks(@RequestBody tour: Tour):ResponseEntity<ArrayList<String>> {
+        return ResponseEntity.ok(service.getLinks(tour));
+    }
+
+    @RequestMapping(value = ["/putReservation"], method = [RequestMethod.POST])
+    fun putReservation(@RequestBody reservation: Reservation):ResponseEntity<Boolean> {
+        println(reservation)
+        return ResponseEntity.ok(service.putReservation(reservation));
     }
 
     @RequestMapping(value = ["/addFav"], method = [RequestMethod.POST])
@@ -73,20 +85,7 @@ class TourController {
     }
 
 
-    @RequestMapping(value = ["/helloWorld/{name}"], method = [(RequestMethod.GET)])
-    fun getHelloWordMessageWithName(
-        @PathVariable("name") name: String
-    ): ResponseEntity<Any> =
-        if (name != "Cristian") {
-            ResponseEntity.ok(
-                HelloResponse(
-                    message = "Hello $name",
-                    name = name
-                )
-            )
-        } else {
-            ResponseEntity.badRequest().body("I am Cristian")
-        }
+
 }
 
 data class HelloResponse(

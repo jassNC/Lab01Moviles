@@ -50,23 +50,23 @@ app.get('/getTour', async function (req, res) {
   res.send(await services.getTourById(req.session.tourId))
 })
 
-app.get('/addFav',function(req, res){
+app.get('/addFav', function (req, res) {
   var tourId = req.query.tourId
   var userId = req.session.user.id
   services.addFav(userId, tourId)
 })
 
-app.get('/removeFav',function(req, res){
+app.get('/removeFav', function (req, res) {
   var tourId = req.query.tourId
   var userId = req.session.user.id
   services.removeFav(userId, tourId)
 })
 
-app.get('/getFavs',async function(req, res){
-  if(req.session.user){
+app.get('/getFavs', async function (req, res) {
+  if (req.session.user) {
     var userId = req.session.user.id
     res.send(await services.getFavs(userId))
-  }else{
+  } else {
     res.send([])
   }
 })
@@ -107,6 +107,19 @@ app.get('/cart', function (req, res) {
 app.get('/clearCart', function (req, res) {
   req.session.cart = []
   res.send("done");
+});
+
+app.get('/buy', function (req, res) {
+  var cart = req.session.cart
+  cart.forEach(element => {
+    var order = {
+      seats: element.seats,
+      user: { id: req.session.user.id },
+      tour: { id: element.id }
+    }
+    services.addReservation(order)
+  });
+  res.send("done")
 });
 
 app.get('/addToCart', function (req, res) {

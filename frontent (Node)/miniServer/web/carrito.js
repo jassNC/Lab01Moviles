@@ -46,6 +46,12 @@ $(document).ready(function () {
 });
 
 window.onload = function () {
+    updateNavBar()
+
+
+
+
+
 // Variables
 const baseDeDatos = [
   {

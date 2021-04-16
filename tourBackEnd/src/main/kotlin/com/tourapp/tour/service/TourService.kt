@@ -1,10 +1,7 @@
 package com.tourapp.tour.service
 
 import com.tourapp.tour.dao.TourDao
-import com.tourapp.tour.model.Activity
-import com.tourapp.tour.model.Country
-import com.tourapp.tour.model.Tour
-import com.tourapp.tour.model.User
+import com.tourapp.tour.model.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,7 +46,13 @@ class TourService {
         return TourDao.getTourById(tour)
     }
 
+    fun putReservation(reservation: Reservation): Boolean{
+        return TourDao.putReservation(reservation)
+    }
 
+    fun getLinks(tour: Tour): ArrayList<String>{
+        return TourDao.getLinks(tour)
+    }
 
 
 }

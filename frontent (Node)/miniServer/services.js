@@ -28,6 +28,17 @@ async function addFav(userId, tourId){
     return await promise.text()==="true"
 }
 
+async function addReservation(reservation){
+    let promise = await fetch('http://localhost:8080/tourApi/putReservation', {
+        method: "POST",
+        body: JSON.stringify(reservation),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return await promise.text()==="true"
+}
+
 async function getFavs(userId){
     data ={
         id: userId
@@ -102,3 +113,4 @@ exports.addFav = addFav
 exports.removeFav = removeFav
 exports.getFavs = getFavs
 exports.getTourById = getTourById
+exports.addReservation = addReservation

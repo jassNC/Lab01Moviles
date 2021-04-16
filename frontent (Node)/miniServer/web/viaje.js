@@ -15,45 +15,47 @@ async function loadData() {
     $("#detailsId").html(
         "<h2>Información general</h2>"
         + "<p>Categoria: " + tour.category.name + "</p>"
-        +"<p>Fecha de salida:</p>"
+        + "<p>Fecha de salida:</p>"
         + "<p>" + tour.leaveDate + "</p>"
-        +"<p>Fecha de regreso:</p>"
+        + "<p>Fecha de regreso:</p>"
         + "<p>" + tour.returnDate + "</p>"
     )
-    $("#includesId").html("<h2>Incluye:</h2>"+ getActivities())
-    $("#priceId").html("Precio: $"+tour.price)
+    $("#includesId").html("<h2>Incluye:</h2>" + getActivities())
+    $("#priceId").html("Precio: $" + tour.price)
     $("#ammountId").html(getSeats())
     $("#comments-list").html(getComments())
-    if(user.name=="noUser"){
-        $("#boton-reservar").prop("disabled",true);
+    if (user.name == "noUser") {
+        $("#boton-reservar").prop("disabled", true);
     }
-    
+    loadImages(tour.id)
 }
 
-function getActivities(){
-    let array=""
+function getActivities() {
+    let array = ""
     tour.activities.forEach(element => {
         console.log(element.body)
-        array+="<p>"+ element.body + "</p>"
+        array += "<p>" + element.body + "</p>"
     });
     return array
 }
 
-function getSeats(){
-    var i = tour.seats +1
+function getSeats() {
+    var i = tour.seats + 1
     let array = ""
-    while(i--){
-        array="<option value='"+i+"'>"+i+"</option>"+array
+    if (i > 0) {
+        while (i--) {
+            array = "<option value='" + i + "'>" + i + "</option>" + array
+        }
     }
     return array
 }
 
-function getComments(){
+function getComments() {
     let array = ""
     tour.reviews.forEach(element => {
-        array+="<li> <div class='comment-main-level'><div class='comment-avatar'><img src='images/avatar1.jpg' alt=''></div>"
-        +"<div class='comment-box'> <div class='comment-content'>"+element.body+
-        "</div> </div></div></li>"
+        array += "<li> <div class='comment-main-level'><div class='comment-avatar'><img src='images/avatar1.jpg' alt=''></div>"
+            + "<div class='comment-box'> <div class='comment-content'>" + element.body +
+            "</div> </div></div></li>"
     });
     console.log(array)
     return array
@@ -71,18 +73,44 @@ async function updateNavBar() {
         $("#navBar").html(options)
     }
 }
+
+function logout() {
+    fetch("http://localhost:3000/logout")
+    window.location = 'http://localhost:3000';
+}
 async function getLoggedUser() {
     let promise = await fetch("http://localhost:3000/getLoggedUser")
     return promise.json()
 }
 
 async function addToCart() {
-    if($("#ammountId").val()>0){
-        fetch("http://localhost:3000/addToCart?id="+tour.id+"&price="+tour.price+"&seats="+$("#ammountId").val()+"&name="+tour.name)
+    if ($("#ammountId").val() > 0) {
+        fetch("http://localhost:3000/addToCart?id=" + tour.id + "&price=" + tour.price + "&seats=" + $("#ammountId").val() + "&name=" + tour.name)
     }
+    window.location = 'http://localhost:3000/viaje.html';
 }
 
-function logout() {
-    fetch("http://localhost:3000/logout")
-    window.location = 'http://localhost:3000';
+async function getImages(tourId){
+    var tour = {id:tourId}
+    var promise = await fetch("http://localhost:8080/tourApi/getLinks", {
+        method: "POST",
+        body: JSON.stringify(tour),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return await promise.json()
+}
+
+async function loadImages(tourId){
+    var index = 1;
+    var images = await getImages(tourId)
+    var htmlImg = ""
+    images.forEach(element => {
+        htmlImg+="var img = '<div class='product' id='product_"+index+"'>"+
+        "<img src='"+element+"' width='798' height='303' /></div>"
+        index++
+    });
+    $("#carruselId").html(htmlImg)
 }

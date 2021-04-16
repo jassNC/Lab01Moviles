@@ -302,6 +302,37 @@ object TourDao {
         return result;
     }
 
+    fun putReservation(reservation: Reservation): Boolean{
+        var stmt: Statement?
+        try {
+            stmt = conn!!.prepareCall("CALL tourdb.PUT_RESERVATION(${reservation.seats}," +
+                    "${reservation.user.id},${reservation.tour.id})")
+            stmt!!.executeQuery()
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun getLinks(tour: Tour): ArrayList<String>{
+        var stmt: Statement?
+        var resultset: ResultSet?
+        var result = ArrayList<String>()
+
+        try {
+            stmt = conn!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT * FROM tourdb.IMAGE WHERE TOUR_FK = ${tour.id};")
+
+            while (resultset!!.next()) {
+                result.add(resultset.getString("LINK"))
+            }
+        } catch (ex: SQLException) {
+            ex.printStackTrace()
+        }
+        return result;
+    }
+
     fun getConnection():Connection? {
         val connectionProps = Properties()
         connectionProps.put("user", username)
@@ -315,62 +346,4 @@ object TourDao {
         return null;
     }
 
-
-
-
-
-
-
-
-
-    /*
-    fun executeMySQLQuery() {
-        var stmt: Statement? = null
-        var resultset: ResultSet? = null
-
-        try {
-            stmt = conn!!.createStatement()
-            resultset = stmt!!.executeQuery("SHOW DATABASES;")
-
-            if (stmt.execute("SHOW DATABASES;")) {
-                resultset = stmt.resultSet
-            }
-
-            while (resultset!!.next()) {
-                println(resultset.getString("Database"))
-            }
-        } catch (ex: SQLException) {
-            // handle any errors
-            ex.printStackTrace()
-        } finally {
-            // release resources
-            if (resultset != null) {
-                try {
-                    resultset.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                resultset = null
-            }
-
-            if (stmt != null) {
-                try {
-                    stmt.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                stmt = null
-            }
-
-            if (conn != null) {
-                try {
-                    conn!!.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                conn = null
-            }
-        }
-    }
-    */
 }
